@@ -1,6 +1,6 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var userRouter = require('./routes/userRouter');
+var express = require("express"); // Load express module
+var bodyParser = require("body-parser"); // Load body-parser module
+var userRouter = require('./routes/userRouter'); // Load user router module
 
 // Express
 var app = express();

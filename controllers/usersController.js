@@ -1,4 +1,5 @@
  var userController = function(Admin){
+	// Add user to firebase
 	var add = function(req,res){
 		var email = req.body.email;
 		var password = req.body.password;
@@ -25,6 +26,7 @@
 		});
 	}
 
+	// Get user by uid
 	var getById = function(req,res){
 		Admin.auth().getUser(req.params.id)
 		.then(function(userRecord) {
@@ -40,10 +42,9 @@
 		});
 	}
 
+	// Update user properties
 	var patch = function(req,res) {
 		var uid = req.params.id;
-		// var email = req.body.email;
-		// var password = req.body.password;
 
 		params = {};
 
@@ -70,6 +71,7 @@
 		})
 	}
 
+	// Get user by email
 	var getByEmail = function(req,res) {
 		var email = req.body.email;
 
@@ -86,6 +88,7 @@
 			})
 	}
 
+	// Delete user
 	var del = function (req,res) {
 		var uid = req.params.id;
 
@@ -102,6 +105,7 @@
 			})
 	}
 
+	// Return the module
 	return {
 		add: add,
 		getById: getById,
@@ -111,4 +115,5 @@
 	}
 }
 
+// Export the module
 module.exports = userController;
