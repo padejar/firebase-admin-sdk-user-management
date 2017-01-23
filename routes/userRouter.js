@@ -1,7 +1,7 @@
 var express = require('express');
 var admin = require("firebase-admin");
 admin.initializeApp({
-  credential: admin.credential.cert("yourapphere-firebase-adminsdk-wto9q-5417acc53e.json"),
+  credential: admin.credential.cert("path/to/cert-file.json"),
   databaseURL: "https://yourapphere.firebaseio.com"
 });
 // var User = require('./../models/userModel');
