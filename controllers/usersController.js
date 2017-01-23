@@ -40,10 +40,6 @@
 		});
 	}
 
-	var update = function(req,res) {
-
-	}
-
 	var patch = function(req,res) {
 		var uid = req.params.id;
 		// var email = req.body.email;
@@ -108,10 +104,8 @@
 
 	return {
 		add: add,
-		get: get,
 		getById: getById,
 		getByEmail: getByEmail,
-		update: update,
 		patch: patch,
 		del:del
 	}
