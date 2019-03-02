@@ -10,7 +10,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "firebase-admin": "4.0.4"
+    "firebase-admin": "^7.0.0"
   },
   "version": "1.0.0",
   "devDependencies": {},
