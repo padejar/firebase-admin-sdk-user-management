@@ -8,8 +8,8 @@
   "author": "KlikQuick",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "firebase-admin": "4.0.4"
   },
   "version": "1.0.0",
