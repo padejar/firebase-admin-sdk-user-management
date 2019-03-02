@@ -1,92 +1,100 @@
- var userController = function(Admin){
+ let userController = (Admin) => {
 	// Add user to firebase
-	var add = function(req,res){
-		var email = req.body.email;
-		var password = req.body.password;
-		Admin.auth().createUser({
+	let add = async (req,res) => {
+		let email = req.body.email;
+		let password = req.body.password;
+
+		let user = await Admin.auth().createUser({
 			email: email,
 			password: password
 		})
-		.then(function(userRecord){
+		.then((userRecord) =>{
+			return userRecord.toJSON();
+		})
+		.catch((error) => {
+			console.log(error);
+			return false;
+		});
+
+		if (user) {
 			res.setHeader('Content-Type','application/json');
-			var user = userRecord.toJSON();
 			res.status(201);
 			res.send(user);
-			console.log('-------');
-			console.log('User created: ');
-			console.log('uid: '+userRecord.uid);
-			console.log('email: '+userRecord.email);
-			console.log('emailVerified: '+userRecord.emailVerified);
-			console.log('disabled: '+userRecord.disabled);
-		})
-		.catch(function(error){
-			res.status(200);
-			res.send('Error:'+error);
-			console.log(error);
-		});
-	}
+		} else {
+			res.status(500);
+			res.send('Error');
+		}
+	};
 
 	// Get user by uid
-	var getById = function(req,res){
-		Admin.auth().getUser(req.params.id)
+	let getById = async (req,res) => {
+		let user = await Admin.auth().getUser(req.params.id)
 		.then(function(userRecord) {
 		    // See the tables below for the contents of userRecord
-		    res.status(200);
-		    var user = userRecord.toJSON();
-		    res.send(user);
-		    console.log(userRecord);
+			console.log(userRecord);
+		    return userRecord.toJSON();
 		})
 		.catch(function(error) {
-		    res.status(500);
-			res.send('Failed:'+error);
+			console.log(error);
+			return false;
 		});
-	}
+
+		if (user) {
+			res.status(200);
+			res.send(user);
+		} else {
+			res.status(500);
+			res.send('Failed');
+		}
+	};
 
 	// Update user properties
-	var patch = function(req,res) {
-		var uid = req.params.id;
+	let patch = async (req,res) => {
+		let uid = req.params.id;
 
-		params = {};
+		let params = {};
 
-		for (var p in req.body) {
+		for (let p in req.body) {
 			params[p] = req.body[p];
 		}
 
-		Admin.auth().updateUser(uid, params)
+		let user = await Admin.auth().updateUser(uid, params)
 		.then(function(userRecord){
-			res.status(200);
-			var user = userRecord.toJSON();
-			res.send(user);
-			console.log('-------');
-			console.log('User Updated: ');
-			console.log('uid: '+userRecord.uid);
-			console.log('email: '+userRecord.email);
-			console.log('emailVerified: '+userRecord.emailVerified);
-			console.log('disabled: '+userRecord.disabled);
+			return userRecord.toJSON();
 		})
 		.catch(function(error){
+			console.log(error);
+			return false;
+		});
+
+		if (user) {
+			res.status(200);
+			res.send(user);
+		} else {
 			res.status(500);
-			res.send('Failed: '+error);
-			console.log(error.message);
-		})
-	}
+			res.send('Failed');
+		}
+	};
 
 	// Get user by email
-	var getByEmail = function(req,res) {
-		var email = req.body.email;
+	let getByEmail = async (req,res) => {
+		let email = req.body.email;
 
-		Admin.auth().getUserByEmail(email)
+		let user = await Admin.auth().getUserByEmail(email)
 			.then(function(userRecord){
-				res.status(200);
-				user = userRecord.toJSON();
-				console.log(userRecord);
-				res.send(user);
+				return userRecord.toJSON();
 			})
 			.catch(function(error){
 				res.status(500);
 				console.log(error);
-			})
-	}
+			});
+
+		if (user) {
+			res.status(200);
+			console.log(user);
+			res.send(user);
+		}
+	};
 
 	// Delete user
 	var del = function (req,res) {

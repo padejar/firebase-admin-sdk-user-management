@@ -1,9 +1,9 @@
-var express = require("express"); // Load express module
-var bodyParser = require("body-parser"); // Load body-parser module
-var userRouter = require('./routes/userRouter'); // Load user router module
+let express = require("express"); // Load express module
+let bodyParser = require("body-parser"); // Load body-parser module
+let userRouter = require('./routes/userRouter'); // Load user router module
 
 // Express
-var app = express();
+let app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
